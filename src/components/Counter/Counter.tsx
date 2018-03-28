@@ -5,6 +5,7 @@ import { Text, View, Button } from 'react-native';
 import { RootState } from '../../reducers';
 import { CounterAction } from '../../actions/CounterAction';
 import { styles } from './Counter.s';
+import { CounterSelector } from '../../selectors/CounterSelector';
 
 namespace Counter {
   export type DispatchProps = {
@@ -14,7 +15,7 @@ namespace Counter {
     setValue: (value: number) => void;
   };
   export type StateProps = {
-    counter: number | any;
+    value: CounterSelector.SelectValue;
   };
   export type OwnProps = {};
   export type Props = StateProps & DispatchProps & OwnProps;
@@ -28,7 +29,7 @@ class CounterPure extends React.Component<Counter.Props> {
   render(): React.ReactElement<any> {
     return (
       <View style={styles.view}>
-        <Text style={styles.text}>counter: {this.props.counter}</Text>
+        <Text style={styles.text}>counter: {this.props.value}</Text>
         <Button title="increment" onPress={this.handleIncrement} />
         <Button title="decrement" onPress={this.handleDecrement} />
         <Button title="reset" onPress={this.handleReset} />
@@ -40,7 +41,7 @@ class CounterPure extends React.Component<Counter.Props> {
 export const Counter: React.ComponentClass<Counter.OwnProps> = compose(
   connect(
     (state: RootState): Counter.StateProps => ({
-      counter: state.counter.value
+      value: CounterSelector.selectValue(state)
     }),
     (dispatch: Dispatch<RootState>): Counter.DispatchProps => ({
       increment: () => dispatch(CounterAction.increment()),
