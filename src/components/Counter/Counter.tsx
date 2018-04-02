@@ -20,7 +20,7 @@ namespace Counter {
   export type Props = StateProps & DispatchProps & OwnProps;
 }
 
-const CounterPure = (props: Counter.Props) => (
+const CounterPure: React.SFC<Counter.Props> = (props) => (
   <View style={styles.view}>
     <Text style={styles.text}>counter: {props.value}</Text>
     <Button title="increment" onPress={props.increment} />
