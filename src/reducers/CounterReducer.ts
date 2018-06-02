@@ -1,4 +1,4 @@
-import { ActionType } from '../const/ActionType';
+import { CounterAction } from '../actions/CounterAction';
 
 export namespace CounterReducer {
   export type State = Readonly<{
@@ -11,17 +11,13 @@ export namespace CounterReducer {
 
   export const reducer = (state: State, action: any) => {
     switch (action.type) {
-      case ActionType.INCREMENT:
-        return ({
-          value: state.value + 1
-        });
-      case ActionType.DECREMENT:
-        return ({
-          value: state.value - 1
-        });
-      case ActionType.SET_VALUE:
+      case CounterAction.INCREMENT:
+        return ({ value: state.value + 1 });
+      case CounterAction.DECREMENT:
+        return ({ value: state.value - 1 });
+      case CounterAction.SET_VALUE:
         return action.payload;
-      case ActionType.RESET:
+      case CounterAction.RESET:
         return initial;
       default:
         return initial;
