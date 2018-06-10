@@ -1,8 +1,11 @@
 import { createStore, compose, applyMiddleware, GenericStoreEnhancer } from 'redux';
-import createSagaMiddleware, { SagaMiddleware, delay } from 'redux-saga';
+import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 import { rootReducer } from '../reducers';
-import { all, put, takeEvery, call, fork } from 'redux-saga/effects'
 import { CounterAction } from '../actions/CounterAction';
+import { all, put, takeEvery, call } from 'redux-saga/effects';
+import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosInstance } from 'axios';
+
 
 /**
  * Redux devtools
@@ -20,16 +23,33 @@ const devToolsExtension: GenericStoreEnhancer = window.devToolsExtension ?
  */
 const sagaMiddleware: SagaMiddleware<any> = createSagaMiddleware();
 
-const test = (): Promise<any> => {
-  return fetch('https://jsonplaceholder.typicode.com/postss/1')
-};
+// const testApi = (): Promise<any> => fetch('https://jsonplaceholder.typicode.com/postss/1')
+//   .then(response => response)
+//   .catch(error => error);
+
+// todo: env
+const apiClient: AxiosInstance = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com/',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
+});
+
+const testApi = (): Promise<any> => apiClient.get('https://jsonplaceholder.typicode.com/postss/1')
+  .then((response: AxiosResponse) => response)
+  .catch((error: AxiosError) => {
+    throw error;
+  });
 
 export function* incrementAsync() {
   try {
-    const res = yield call(test);
+    const res = yield call(testApi);
     yield put({ type: CounterAction.INCREMENT });
   } catch (error) {
-    yield put({ type: CounterAction.INCREMENT });
+    console.warn(error);
+    yield put({ type: CounterAction.DECREMENT });
   }
 }
 

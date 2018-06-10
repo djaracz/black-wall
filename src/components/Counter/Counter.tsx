@@ -4,8 +4,8 @@ import { connect, Dispatch } from 'react-redux';
 import { Text, View, Button } from 'react-native';
 import { RootState } from '../../reducers';
 import { CounterAction } from '../../actions/CounterAction';
-import { styles } from './Counter.s';
 import { CounterSelector } from '../../selectors/CounterSelector';
+import { styles } from './Counter.s';
 
 namespace Counter {
   export type DispatchProps = {

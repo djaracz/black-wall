@@ -9,7 +9,7 @@ export namespace CounterReducer {
     value: 0
   };
 
-  export const reducer = (state: State, action: any) => {
+  export const reducer = (state: State = initial, action: any) => {
     switch (action.type) {
       case CounterAction.INCREMENT:
         return ({ value: state.value + 1 });
@@ -20,7 +20,7 @@ export namespace CounterReducer {
       case CounterAction.RESET:
         return initial;
       default:
-        return initial;
+        return state;
     }
   }
 }

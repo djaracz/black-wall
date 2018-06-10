@@ -32,6 +32,7 @@
     "dev": "REACT_DEBUGGER=\"unset ELECTRON_RUN_AS_NODE && open -g 'rndebugger://set-debugger-loc?port=19001'\""
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^25.0.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
