@@ -2,8 +2,8 @@ import * as React from 'react';
 import { compose } from 'redux';
 import { connect, Dispatch } from 'react-redux';
 import { Text, View, Button } from 'react-native';
-import { RootState } from '../../reducers';
-import { CounterAction } from '../../actions/CounterAction';
+import { RootState } from '../../reducer';
+import { CounterAction } from '../../action/CounterAction';
 import { CounterSelector } from '../../selectors/CounterSelector';
 import { styles } from './Counter.s';
 

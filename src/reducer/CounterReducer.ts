@@ -1,4 +1,4 @@
-import { CounterAction } from '../actions/CounterAction';
+import { CounterAction } from '../action/CounterAction';
 
 export namespace CounterReducer {
   export type State = Readonly<{
