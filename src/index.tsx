@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { Main } from './screens/main/Main';
+import { Counter } from './component/Counter/Counter';
 
 export const Root = (): React.ReactNode => (
   <Provider store={store}>
-    <Main />
+    <Counter />
   </Provider>
 );
