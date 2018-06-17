@@ -6,11 +6,12 @@ import { RootState } from '../../reducer';
 import { CounterAction } from '../../action/CounterAction';
 import { CounterSelector } from '../../selectors/CounterSelector';
 import { styles } from './Counter.s';
+import { RandomAction } from '../../action/RandomAction';
 
 namespace Counter {
   export type DispatchProps = {
     increment: () => void;
-    incrementAsync: () => void;
+    fetchAsync: () => void;
     decrement: () => void;
     reset: () => void;
     setValue: (value: number) => void;
@@ -24,7 +25,7 @@ namespace Counter {
 
 class CounterPure extends React.Component<Counter.Props> {
   handleIncrement = (): void => this.props.increment();
-  handleIncrementAsync = (): void => this.props.incrementAsync();
+  handleFetchAsync = (): void => this.props.fetchAsync();
   handleDecrement = (): void => this.props.decrement();
   handleReset = (): void => this.props.reset();
 
@@ -33,9 +34,9 @@ class CounterPure extends React.Component<Counter.Props> {
       <View style={styles.view}>
         <Text style={styles.text}>counter: {this.props.value}</Text>
         <Button title="increment" onPress={this.handleIncrement} />
-        <Button title="incrementAsync" onPress={this.handleIncrementAsync} />
         <Button title="decrement" onPress={this.handleDecrement} />
         <Button title="reset" onPress={this.handleReset} />
+        <Button title="fetch async" onPress={this.handleFetchAsync} />
       </View>
     );
   }
@@ -48,7 +49,7 @@ export const Counter: React.ComponentClass<Counter.OwnProps> = compose(
     }),
     (dispatch: Dispatch<RootState>): Counter.DispatchProps => ({
       increment: () => dispatch(CounterAction.increment()),
-      incrementAsync: () => dispatch(CounterAction.incrementAsync()),
+      fetchAsync: () => dispatch(RandomAction.fetchPost()),
       decrement: () => dispatch(CounterAction.decrement()),
       reset: () => dispatch(CounterAction.reset()),
       setValue: value => dispatch(CounterAction.setValue(value)),

@@ -1,8 +1,8 @@
-import { all, takeEvery } from 'redux-saga/effects';
-import { IncrementSaga } from './IncrementSaga';
+import { all, fork } from 'redux-saga/effects';
+import { RandomSaga } from './RandomSaga';
 
 export function* rootSaga() {
   yield all([
-    takeEvery('INCREMENT_ASYNC', IncrementSaga.incrementAsync)
+    fork(RandomSaga.randomAsync)
   ]);
 }
