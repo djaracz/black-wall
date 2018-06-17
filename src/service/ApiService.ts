@@ -27,7 +27,7 @@ export namespace ApiService {
     return {
       get: <Entry>(params: string = '', config: AxiosRequestConfig = {}) => (message: string) => () =>
         getDumb<Entry>(
-          `${baseUrl}${params}`,
+          `${baseUrl}/${params}`,
           config,
           instance
         )({ name, message })
