@@ -1,63 +1,39 @@
 import reduceReducer from 'reduce-reducers';
-import { combineReducers } from 'redux';
-import { handleAction, Action } from 'redux-actions';
+import { handleAction } from 'redux-actions';
 import { CounterAction } from '../action/CounterAction';
 
 export namespace CounterReducer {
-  export type State = Readonly<{
-    value: number
-  }>;
+  export type State = Readonly<number>;
 
-  const initial: State = {
-    value: 0
-  };
+  const initial: State = 0;
 
-  export const increment = handleAction(
+  export const increment = handleAction<State, undefined>(
     CounterAction.INCREMENT,
-    (state: State) => ({ value: state.value + 1 }),
+    (state: State) => state + 1 ,
     initial
   );
 
-  export const decrement = handleAction(
+  export const decrement = handleAction<State, undefined>(
     CounterAction.DECREMENT,
-    (state: State) => ({ value: state.value - 1 }),
+    (state: State) => state - 1,
     initial
   );
 
-  export const reset = handleAction(
+  export const reset = handleAction<State, undefined>(
     CounterAction.RESET,
-    (state: State) => (initial),
+    (state: State) => initial,
     initial
   );
 
-  export const setValue = handleAction(
+  export const setValue = handleAction<State, number>(
     CounterAction.SET_VALUE,
-    (state: State, action: CounterAction.SetValueAction) => ({ value: action.payload || state.value }),
+    (state: State, action: CounterAction.SetValueAction) => action.payload || initial,
     initial
   );
 
-  export const reducer = reduceReducer(
+  export const reducer = reduceReducer<State>(
     increment,
     decrement,
     reset
   );
-
-  // export const reducer = handleActions({
-  //   value: combineActions(increment)
-  // }, initial)
-
-  // export const reducer = (state: State = initial, action: any) => {
-  //   switch (action.type) {
-  //     case CounterAction.INCREMENT:
-  //       return ({ value: state.value + 1 });
-  //     case CounterAction.DECREMENT:
-  //       return ({ value: state.value - 1 });
-  //     case CounterAction.SET_VALUE:
-  //       return action.payload;
-  //     case CounterAction.RESET:
-  //       return initial;
-  //     default:
-  //       return state;
-  //   }
-  // }
 }
