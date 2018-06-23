@@ -5,7 +5,7 @@ import { CounterAction } from '../action/CounterAction';
 export namespace CounterReducer {
   export type State = Readonly<number>;
 
-  const initial: State = 0;
+  export const initial: State = 0;
 
   export const increment = handleAction<State, undefined>(
     CounterAction.INCREMENT,

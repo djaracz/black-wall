@@ -1,7 +1,7 @@
 import { ApiService } from './ApiService';
 import { apiClient } from './apiClient';
 
-export namespace RandomService {
+export namespace PostService {
   export type Entry = {
     id: number,
     userId: number,

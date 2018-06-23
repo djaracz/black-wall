@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects';
-import { RandomSaga } from './RandomSaga';
+import { PostSaga } from './PostSaga';
 
 export function* rootSaga() {
   yield all([
-    fork(RandomSaga.randomAsync)
+    fork(PostSaga.listAsync)
   ]);
 }

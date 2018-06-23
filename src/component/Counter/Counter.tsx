@@ -6,7 +6,7 @@ import { RootState } from '../../reducer';
 import { CounterAction } from '../../action/CounterAction';
 import { CounterSelector } from '../../selectors/CounterSelector';
 import { styles } from './Counter.s';
-import { RandomAction } from '../../action/RandomAction';
+import { PostAction } from '../../action/PostAction';
 
 namespace Counter {
   export type DispatchProps = {
@@ -49,7 +49,7 @@ export const Counter: React.ComponentClass<Counter.OwnProps> = compose(
     }),
     (dispatch: Dispatch<RootState>): Counter.DispatchProps => ({
       increment: () => dispatch(CounterAction.increment()),
-      fetchAsync: () => dispatch(RandomAction.fetchPost()),
+      fetchAsync: () => dispatch(PostAction.fetchList()),
       decrement: () => dispatch(CounterAction.decrement()),
       reset: () => dispatch(CounterAction.reset()),
       setValue: value => dispatch(CounterAction.setValue(value)),
