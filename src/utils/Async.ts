@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { handleAction as reduxActionsHandleAction, Reducer } from 'redux-actions';
+import { handleActions, Reducer } from 'redux-actions';
 
 export namespace Async {
   export enum Status {
@@ -23,26 +23,15 @@ export namespace Async {
     initial: State
   ): Reducer<State, Payload> => {
     const types: CreateTypes = createTypes(type);
-    switch (type) {
-      case types.get(Status.RESOLVED):
-        return reduxActionsHandleAction(
-          types.get(Status.RESOLVED),
-          reducer,
-          initial
-        );
-      case types.get(Status.REJECTED):
-        return reduxActionsHandleAction(
-          types.get(Status.RESOLVED),
-          () => initial,
-          initial
-        );
-      default:
-        return reduxActionsHandleAction(
-          types.get(Status.VOID),
-          () => initial,
-          initial
-        );
-    }
+
+    return handleActions(
+      {
+        [types.get(Status.VOID)]: () => initial,
+        [types.get(Status.REJECTED)]: () => initial,
+        [types.get(Status.RESOLVED)]: reducer,
+      },
+      initial
+    );
   };
 
   export const action = <Payload>(type: string, payload?: Payload, status: Status = Status.PENDING) => {

@@ -7,7 +7,7 @@ import { Async } from '../utils/Async';
 export namespace PostReducer {
   export type State = List<Post.Type>;
 
-  const initial: State = List();
+  export const initial: State = List();
 
   export const list = Async.handleAction<State, PostAction.FetchListPayload>(
     PostAction.FETCH_POST_LIST,
