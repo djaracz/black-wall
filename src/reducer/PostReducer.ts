@@ -9,8 +9,8 @@ export namespace PostReducer {
 
   export const initial: State = List();
 
-  export const list = Async.handleAction<State, PostAction.FetchListPayload>(
-    PostAction.FETCH_POST_LIST,
+  export const list = Async.handleAction<State, PostAction.ListPayload>(
+    PostAction.POST_LIST,
     (state: State, action) => action.payload || initial,
     initial
   );

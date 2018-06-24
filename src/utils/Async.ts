@@ -1,5 +1,6 @@
 import { Map } from 'immutable';
 import { ActionMeta, handleActions, Reducer } from 'redux-actions';
+import { AsyncSelector } from '../selectors/AsyncSelector';
 
 export namespace Async {
   /**
@@ -76,21 +77,14 @@ export namespace Async {
   export const action = <Payload>(
     type: string,
     payload?: Payload,
-    status: Status = Status.PENDING
-  ): Action => {
-    const types: CreateTypes = createTypes(type);
-    const asyncType: string = status === Status.PENDING
-      ? types.get(Status.PENDING)
-      : types.get(status);
-
-    return {
-      type: asyncType,
-      payload: payload ? payload : undefined,
-      meta: {
-        async: true,
-        status,
-        type,
-      }
-    };
-  };
+    status: Status = Status.REQUESTED
+  ): Action => ({
+    type: AsyncSelector.selectTypeForStatus(status)(type),
+    payload: payload ? payload : undefined,
+    meta: {
+      type,
+      async: true,
+      status: AsyncSelector.selectStatus(status),
+    }
+  });
 }

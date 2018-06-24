@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { Post } from '../model/Post';
 
 export namespace PostAction {
-  export const FETCH_POST_LIST = 'FETCH_POST_LIST';
-  export type FetchListPayload = List<Post.Type>;
-  export const fetchList = () => Async.action<FetchListPayload>(FETCH_POST_LIST);
+  export const POST_LIST = 'POST_LIST';
+  export type ListPayload = List<Post.Type>;
+  export const list = () => Async.action<ListPayload>(POST_LIST);
 }

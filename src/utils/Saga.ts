@@ -1,5 +1,6 @@
 import { call, put, take } from 'redux-saga/effects';
 import { Async } from './Async';
+import { AsyncSelector } from '../selectors/AsyncSelector';
 
 export namespace Saga {
   export const asyncFork = <State, Entry, Mapped = any>(
@@ -8,13 +9,12 @@ export namespace Saga {
     mapper?: (data: Entry) => Mapped,
   ) => function* () {
     while (true) {
-      const action = yield take(type);
-
+      const action = yield take(AsyncSelector.selectRequested(type));
       try {
         const responseData: Entry = yield call(service);
         yield put(
           Async.action(
-            action.type,
+            action.meta.type,
             mapper ? mapper(responseData) : responseData,
             Async.Status.RESOLVED
           )
@@ -22,7 +22,7 @@ export namespace Saga {
       } catch (error) {
         yield put(
           Async.action(
-            action.type,
+            action.meta.type,
             error,
             Async.Status.REJECTED
           )

@@ -5,7 +5,7 @@ import { Saga } from '../utils/Saga';
 
 export namespace PostSaga {
   export const listAsync = Saga.asyncFork(
-    PostAction.FETCH_POST_LIST,
+    PostAction.POST_LIST,
     PostService.list,
     PostMapper.list,
   );

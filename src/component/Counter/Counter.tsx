@@ -45,11 +45,11 @@ class CounterPure extends React.Component<Counter.Props> {
 export const Counter: React.ComponentClass<Counter.OwnProps> = compose(
   connect(
     (state: RootState): Counter.StateProps => ({
-      value: CounterSelector.selectValue(state)
+      value: CounterSelector.select(state)
     }),
     (dispatch: Dispatch<RootState>): Counter.DispatchProps => ({
       increment: () => dispatch(CounterAction.increment()),
-      fetchAsync: () => dispatch(PostAction.fetchList()),
+      fetchAsync: () => dispatch(PostAction.list()),
       decrement: () => dispatch(CounterAction.decrement()),
       reset: () => dispatch(CounterAction.reset()),
       setValue: value => dispatch(CounterAction.setValue(value)),
