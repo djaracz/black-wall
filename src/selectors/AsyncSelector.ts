@@ -1,52 +1,24 @@
-import { Async } from '../utils/Async';
+import { AnyAction } from 'redux';
 import { createSelector } from 'reselect';
+import { Async } from '../utils/Async';
+import { RootState } from '../reducer';
+import { AsyncReducer } from '../reducer/AsyncReducer';
 
 export namespace AsyncSelector {
-  export const selectTypesForType = (type: string): Async.CreateTypes => Async.createTypes(type);
+  export const selectDomain = (state: RootState): AsyncReducer.State => state.async;
 
-  export const isRequested = (type: string) => createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): boolean => types.get('REQUESTED') === type
+  export const select = (domain: AsyncReducer.State): AsyncReducer.State => domain;
+
+  export type SelectType = AsyncReducer.Async | undefined;
+  export const selectType = (type: string) => createSelector(
+    select,
+    (async: AsyncReducer.State): SelectType => async.get(type)
   );
 
-  export const isPending = (type: string) => createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): boolean => types.get('PENDING') === type
-  );
-
-  export const isResolved = (type: string) => createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): boolean => types.get('RESOLVED') === type
-  );
-
-  export const isRejected = (type: string) => createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): boolean => types.get('REJECTED') === type
-  );
-
-  export const selectRequested = createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): string => types.get('REQUESTED')
-  );
-
-  export const selectPending = createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): string => types.get('PENDING')
-  );
-
-  export const selectResolved = createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): string => types.get('RESOLVED')
-  );
-
-  export const selectRejected = createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): string => types.get('REJECTED')
-  );
-
-  export const selectTypeForStatus = (status: Async.Status) => createSelector(
-    selectTypesForType,
-    (types: Async.CreateTypes): string => types.get(status)
+  export type SelectTypeExists = boolean;
+  export const selectTypeExists = (type: string) => createSelector(
+    selectType(type),
+    (asyncForType: SelectType): SelectTypeExists => !!asyncForType
   );
 
   export const selectStatus = (status: Async.Status): Async.Status => {
@@ -56,5 +28,7 @@ export namespace AsyncSelector {
       default:
         return Async.Status[status];
     }
-  }
+  };
+
+  export const isActionAsync = (action: AnyAction): boolean => action.meta && action.meta.async;
 }

@@ -1,7 +1,7 @@
-import { createStore, compose, applyMiddleware, GenericStoreEnhancer } from 'redux';
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
-import { rootReducer } from '../reducer';
+import { createStore, compose, applyMiddleware, GenericStoreEnhancer } from 'redux';
 import { rootSaga } from '../saga';
+import { rootReducer } from '../reducer';
 
 /**
  * Redux devtools
@@ -25,7 +25,7 @@ export const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(...middleware),
-    devToolsExtension
+    devToolsExtension,
   ) as GenericStoreEnhancer
 );
 

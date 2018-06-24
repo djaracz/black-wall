@@ -1,6 +1,6 @@
 import { call, put, take } from 'redux-saga/effects';
 import { Async } from './Async';
-import { AsyncSelector } from '../selectors/AsyncSelector';
+import { TypeSelector } from '../selectors/TypeSelector';
 
 export namespace Saga {
   function* putResolved(type: string, payload: any) {
@@ -29,7 +29,7 @@ export namespace Saga {
     mapper?: (data: Entry) => Mapped,
   ) => function* () {
     while (true) {
-      const action = yield take(AsyncSelector.selectRequested(type));
+      const action = yield take(TypeSelector.selectRequested(type));
       try {
         const responseData: Entry = yield call(service);
         yield putResolved(
