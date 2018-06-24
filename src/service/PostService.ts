@@ -1,4 +1,4 @@
-import { ApiService } from './ApiService';
+import { ApiService } from '../utils/ApiService';
 import { apiClient } from './apiClient';
 
 export namespace PostService {
