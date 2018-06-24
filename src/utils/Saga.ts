@@ -3,6 +3,26 @@ import { Async } from './Async';
 import { AsyncSelector } from '../selectors/AsyncSelector';
 
 export namespace Saga {
+  function* putResolved(type: string, payload: any) {
+    yield put(
+      Async.action(
+        type,
+        payload,
+        Async.Status.RESOLVED
+      )
+    )
+  }
+
+  function* putRejected(type: string, payload: any) {
+    yield put(
+      Async.action(
+        type,
+        payload,
+        Async.Status.REJECTED
+      )
+    )
+  }
+
   export const asyncFork = <State, Entry, Mapped = any>(
     type: string,
     service: () => Promise<Entry>,
@@ -12,20 +32,14 @@ export namespace Saga {
       const action = yield take(AsyncSelector.selectRequested(type));
       try {
         const responseData: Entry = yield call(service);
-        yield put(
-          Async.action(
-            action.meta.type,
-            mapper ? mapper(responseData) : responseData,
-            Async.Status.RESOLVED
-          )
+        yield putResolved(
+          action.meta.type,
+          mapper ? mapper(responseData) : responseData
         );
       } catch (error) {
-        yield put(
-          Async.action(
-            action.meta.type,
-            error,
-            Async.Status.REJECTED
-          )
+        yield putRejected(
+          action.meta.type,
+          error
         );
       }
     }
