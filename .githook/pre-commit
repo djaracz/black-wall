@@ -1,0 +1,27 @@
+#!/bin/sh
+tsfiles=$(git diff --cached --name-only --diff-filter=ACM | grep '\.tsx\?$' | tr '\n' ' ')
+
+[ -z "$tsfiles" ] && echo "- No modified TypeScript files found." && exit 0
+
+echo "\033[0;34m•\033[0m Found TypeScript files..."
+
+# Prettify all staged .ts files
+echo "\n\033[0;33m•\033[0m Prettier - processing files..."
+echo "$tsfiles" | xargs ./node_modules/.bin/prettier --single-quote --print-width 100 --write
+
+PRETTIER_RESULT=$?
+[ $PRETTIER_RESULT -ne 0 ] && echo "Prettify pipe failed" && exit $PRETTIER_RESULT
+
+# Lint all staged .ts files
+echo "\n\033[0;33m•\033[0m Linter - processing files..."
+echo "$tsfiles" | xargs ./node_modules/.bin/tslint -t --fix stylish
+
+# Add back the modified/prettified files to staging
+echo "$tsfiles" | xargs git add -u
+
+TSLINT_RESULT=$?
+[ $TSLINT_RESULT -ne 0 ] && echo "TSLint pipe failed" && exit $TSLINT_RESULT
+
+echo "\033[0;32m✓\033[0m Done!"
+
+exit 0

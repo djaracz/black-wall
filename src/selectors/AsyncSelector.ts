@@ -1,9 +1,9 @@
-import { AnyAction } from 'redux';
-import { createSelector } from 'reselect';
-import { Async } from '../utils/Async';
-import { RootState } from '../reducer';
-import { AsyncReducer } from '../reducer/AsyncReducer';
-import { AsyncData } from '../model/AsyncData';
+import { AnyAction } from "redux";
+import { createSelector } from "reselect";
+import { AsyncData } from "../model/AsyncData";
+import { RootState } from "../reducer";
+import { AsyncReducer } from "../reducer/AsyncReducer";
+import { Async } from "../utils/Async";
 
 export namespace AsyncSelector {
   export const selectDomain = (state: RootState): AsyncReducer.State => state.async;
@@ -11,16 +11,15 @@ export namespace AsyncSelector {
   export const select = (domain: AsyncReducer.State): AsyncReducer.State => domain;
 
   export type SelectType = AsyncData.Type | undefined;
-  export const selectType = (type: string) => createSelector(
-    select,
-    (async: AsyncReducer.State): SelectType => async.get(type)
-  );
+  export const selectType = (type: string) =>
+    createSelector(select, (async: AsyncReducer.State): SelectType => async.get(type));
 
   export type SelectTypeExists = boolean;
-  export const selectTypeExists = (type: string) => createSelector(
-    selectType(type),
-    (asyncForType: SelectType): SelectTypeExists => !!asyncForType
-  );
+  export const selectTypeExists = (type: string) =>
+    createSelector(
+      selectType(type),
+      (asyncForType: SelectType): SelectTypeExists => !!asyncForType,
+    );
 
   export const selectStatus = (status: Async.Status): Async.Status => {
     switch (status) {
@@ -33,5 +32,6 @@ export namespace AsyncSelector {
 
   export const isActionAsync = (action: AnyAction): boolean => action.meta && action.meta.async;
 
-  export const isRejected = (action: AnyAction): boolean => action.meta && action.meta.status === Async.Status.REJECTED;
+  export const isRejected = (action: AnyAction): boolean =>
+    action.meta && action.meta.status === Async.Status.REJECTED;
 }

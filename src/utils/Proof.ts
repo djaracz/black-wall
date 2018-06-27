@@ -1,6 +1,5 @@
 export namespace Proof {
-
-  export type Proof = {
+  export interface Proof {
     notNull: (value: any) => any;
     notUndefined: (value: any) => any;
   }
@@ -12,7 +11,7 @@ export namespace Proof {
   export type NotUndefined<Value> = (value: Value) => Value;
   export const notUndefined = <Value>(key?: string): NotUndefined<Value> => (value: Value) => {
     if (value === undefined) {
-      throw new Error(`[${key || 'Not Undefined'}] Value is not defined`)
+      throw new Error(`[${key || "Not Undefined"}] Value is not defined`);
     }
     return value;
   };
@@ -20,7 +19,7 @@ export namespace Proof {
   export type NotNull<Value> = (value: Value) => Value;
   export const notNull = (key: string) => (value: any) => {
     if (value === null) {
-      throw new Error(`[${key || 'Not null'}] Value is equal to null`)
+      throw new Error(`[${key || "Not null"}] Value is equal to null`);
     }
     return value;
   };

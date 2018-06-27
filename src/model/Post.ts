@@ -1,22 +1,22 @@
-import { Proof } from '../utils/Proof';
-import { PostService } from '../service/PostService';
+import { PostService } from "../service/PostService";
+import { Proof } from "../utils/Proof";
 
 export namespace Post {
   export type Type = Readonly<{
-    Id: number,
-    UserId: number,
-    Body: string,
-    Title: string,
+    Id: number;
+    UserId: number;
+    Body: string;
+    Title: string;
   }>;
 
   export const create = (entry: PostService.Entry): Type => ({
     Id: entry.id,
     UserId: entry.userId,
     Body: entry.body,
-    Title: entry.title
+    Title: entry.title,
   });
 
-  const proof = Proof.create('Post model');
+  const proof = Proof.create("Post model");
 
   export const getId = (type: Type): number => proof.notUndefined(type.Id);
   export const getUserId = (type: Type): number => proof.notUndefined(type.UserId);

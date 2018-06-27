@@ -1,12 +1,12 @@
 // import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: 'tomato',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "tomato",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  text: {}
+  text: {},
 });

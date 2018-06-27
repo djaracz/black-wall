@@ -1,4 +1,4 @@
-import { RootState } from '../reducer';
+import { RootState } from "../reducer";
 // import { createSelector } from 'reselect';
 // import { CounterReducer } from '../reducer/CounterReducer';
 

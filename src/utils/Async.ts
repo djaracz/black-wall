@@ -1,16 +1,16 @@
-import { Map } from 'immutable';
-import { ActionMeta, handleActions, Reducer } from 'redux-actions';
-import { TypeSelector } from '../selectors/TypeSelector';
+import { Map } from "immutable";
+import { ActionMeta, handleActions, Reducer } from "redux-actions";
+import { TypeSelector } from "../selectors/TypeSelector";
 
 export namespace Async {
   /**
    * Async action statuses
    */
   export enum Status {
-    REQUESTED = 'REQUESTED',
-    PENDING = 'PENDING',
-    RESOLVED = 'RESOLVED',
-    REJECTED = 'REJECTED'
+    REQUESTED = "REQUESTED",
+    PENDING = "PENDING",
+    RESOLVED = "RESOLVED",
+    REJECTED = "REJECTED",
   }
 
   /**
@@ -18,12 +18,13 @@ export namespace Async {
    * @param {string} type
    */
   export type CreateTypes = Map<string, string>;
-  export const createTypes = (type: string): CreateTypes => Map({
-    [Status.REQUESTED]: `${type}_REQUESTED`,
-    [Status.PENDING]: `${type}_PENDING`,
-    [Status.RESOLVED]: `${type}_RESOLVED`,
-    [Status.REJECTED]: `${type}_REJECTED`,
-  });
+  export const createTypes = (type: string): CreateTypes =>
+    Map({
+      [Status.REQUESTED]: `${type}_REQUESTED`,
+      [Status.PENDING]: `${type}_PENDING`,
+      [Status.RESOLVED]: `${type}_RESOLVED`,
+      [Status.REJECTED]: `${type}_REJECTED`,
+    });
 
   /**
    * Handle async actions by async type
@@ -56,15 +57,15 @@ export namespace Async {
         [types.get(Status.REJECTED)]: reduceOnRejected ? reduceOnRejected : () => initial,
         [types.get(Status.RESOLVED)]: reducer,
       },
-      initial
+      initial,
     );
   };
 
-  export type Meta = {
-    type: string,
-    async: boolean,
-    status: Status,
-  };
+  export interface Meta {
+    type: string;
+    async: boolean;
+    status: Status;
+  }
   export type Action = ActionMeta<any, Meta>;
   /**
    * Dispatch async action
@@ -77,14 +78,14 @@ export namespace Async {
   export const action = <Payload>(
     type: string,
     payload?: Payload,
-    status: Status = Status.REQUESTED
+    status: Status = Status.REQUESTED,
   ): Action => ({
     type: TypeSelector.selectTypeForStatus(status)(type),
     payload: payload ? payload : undefined,
     meta: {
       type,
       async: true,
-      status: status,
-    }
+      status,
+    },
   });
 }

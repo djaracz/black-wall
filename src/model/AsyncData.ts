@@ -1,6 +1,6 @@
-import { Proof } from '../utils/Proof';
-import { Async } from '../utils/Async';
-import { ErrorReason } from './ErrorReason';
+import { Async } from "../utils/Async";
+import { Proof } from "../utils/Proof";
+import { ErrorReason } from "./ErrorReason";
 
 export namespace AsyncData {
   export type Type = Readonly<{
@@ -10,10 +10,10 @@ export namespace AsyncData {
 
   export const create = (status: Async.Status, reason?: ErrorReason.Type): Type => ({
     Status: status,
-    Reason: reason ? reason : undefined
+    Reason: reason ? reason : undefined,
   });
 
-  const proof = Proof.create('AsyncData model');
+  const proof = Proof.create("AsyncData model");
 
   export const getStatus = (type: Type): Async.Status => proof.notUndefined(type.Status);
   export const getReason = (type: Type): ErrorReason.Type => proof.notUndefined(type.Reason);

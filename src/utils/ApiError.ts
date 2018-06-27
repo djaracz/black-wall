@@ -1,11 +1,11 @@
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
 export namespace ApiError {
   export type CreateMessage = (error: AxiosError) => string;
-  export type Content = {
-    name: string,
-    message: string
-  };
+  export interface Content {
+    name: string;
+    message: string;
+  }
 }
 
 export class ApiError extends Error {
@@ -17,10 +17,7 @@ export class ApiError extends Error {
   //   return title;
   // };
 
-  constructor(
-    axiosError: AxiosError,
-    content: ApiError.Content
-  ) {
+  constructor(axiosError: AxiosError, content: ApiError.Content) {
     super();
     this.name = content.name;
     this.message = content.message;

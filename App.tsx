@@ -1,3 +1,3 @@
-import { Root } from './src';
+import { Root } from "./src";
 
 export default Root;

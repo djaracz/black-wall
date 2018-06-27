@@ -1,5 +1,5 @@
-import { Proof } from '../utils/Proof';
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
+import { Proof } from "../utils/Proof";
 
 export namespace ErrorReason {
   export type Type = Readonly<{
@@ -14,7 +14,7 @@ export namespace ErrorReason {
     Data: error.response && error.response.data,
   });
 
-  const proof = Proof.create('ErrorReason model');
+  const proof = Proof.create("ErrorReason model");
 
   export const getData = (type: Type): any => proof.notUndefined(type.Data);
   export const getStatus = (type: Type): number => proof.notUndefined(type.Status);

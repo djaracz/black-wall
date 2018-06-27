@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { AxiosInstance } from 'axios';
+import axios from "axios";
+import { AxiosInstance } from "axios";
 
 // todo .env
-const BASE_URL = 'https://jsonplaceholder.typicode.com/';
+const BASE_URL = "https://jsonplaceholder.typicode.com/";
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json'
-  }
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  },
 });
