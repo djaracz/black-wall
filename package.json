@@ -36,7 +36,7 @@
     "test": "node node_modules/jest/bin/jest.js",
     "dev": "REACT_DEBUGGER=\"unset ELECTRON_RUN_AS_NODE && open -g 'rndebugger://set-debugger-loc?port=19001'\"",
     "lint": "tslint \"src/**/*.ts?(x)\" \"__test__/**/*.ts?(x)\" -t stylish",
-    "lint:fix": "tslint \"src/**/*.ts?(x)\" \"__test__/**/*.ts?(x)\" -t --fix stylish",
+    "lint:fix": "tslint --fix -t stylish \"src/**/*.ts?(x)\" \"__test__/**/*.ts?(x)\"",
     "pretty": "./node_modules/.bin/prettier --single-quote --print-width 100 --write \"src/**/*.ts?(x),css,scss,json\" \"./src/**/*.{ts?(x),css,scss,json}\"",
     "git:hook": "chmod 755 .githook/pre-commit && cd .git/hooks && rm -f pre-commit && ln -s ../../.githook/pre-commit"
   },

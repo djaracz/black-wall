@@ -14,7 +14,7 @@ PRETTIER_RESULT=$?
 
 # Lint all staged .ts files
 echo "\n\033[0;33m•\033[0m Linter - processing files..."
-echo "$tsfiles" | xargs ./node_modules/.bin/tslint -t --fix stylish
+echo "$tsfiles" | xargs ./node_modules/.bin/tslint --fix -t stylish
 
 # Add back the modified/prettified files to staging
 echo "$tsfiles" | xargs git add -u

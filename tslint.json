@@ -2,5 +2,7 @@
   "defaultSeverity": "warn",
   "extends": ["tslint:latest", "tslint-react"],
   "jsRules": {},
-  "rules": {}
+  "rules": {
+    "no-namespace": false
+  }
 }
