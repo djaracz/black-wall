@@ -4,9 +4,9 @@ import { Link, NativeRouter, Route } from "react-router-native";
 import { styles } from "./Main.s";
 
 namespace Main {
-  export interface DispatchProps {}
-  export interface StateProps {}
-  export interface OwnProps {}
+  export type DispatchProps = {};
+  export type StateProps = {};
+  export type OwnProps = {};
   export type Props = StateProps & DispatchProps & OwnProps;
 }
 

@@ -40,7 +40,7 @@ export namespace Async {
    * @param {Reducer<any, Payload>} reduceOnRejected
    * @returns {Reducer<State, Payload>}
    */
-  export const handleAction = <State, Payload, Meta = any>(
+  export const handleAction = <State, Payload, Meta = any>( // tslint:disable-line
     type: string,
     reducer: Reducer<State, Payload>,
     initial: State,
@@ -61,11 +61,11 @@ export namespace Async {
     );
   };
 
-  export interface Meta {
+  export type Meta = {
     type: string;
     async: boolean;
     status: Status;
-  }
+  };
   export type Action = ActionMeta<any, Meta>;
   /**
    * Dispatch async action

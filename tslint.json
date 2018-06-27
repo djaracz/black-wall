@@ -1,8 +1,11 @@
 {
   "defaultSeverity": "warn",
-  "extends": ["tslint:latest", "tslint-react"],
+  "extends": ["tslint:recommended", "tslint:latest", "tslint-react"],
   "jsRules": {},
   "rules": {
-    "no-namespace": false
+    "no-namespace": false,
+    "object-literal-sort-keys": false,
+    "interface-over-type-literal": false,
+    "no-submodule-imports": false
   }
 }

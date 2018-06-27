@@ -64,7 +64,7 @@ export namespace ApiService {
         });
   }
 
-  export interface Create {
+  export interface ICreate {
     get: <Entry>(
       params?: string,
       config?: AxiosRequestConfig,
@@ -84,7 +84,7 @@ export namespace ApiService {
       config?: AxiosRequestConfig,
     ) => (message: string) => () => Promise<Entry>;
   }
-  export function create(name: string, baseUrl: string, instance: AxiosInstance): Create {
+  export function create(name: string, baseUrl: string, instance: AxiosInstance): ICreate {
     return {
       get: <Entry>(params: string = "", config: AxiosRequestConfig = {}) => (
         message: string,

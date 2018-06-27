@@ -1,9 +1,9 @@
 export namespace Proof {
-  export interface Proof {
+  export interface IProof {
     notNull: (value: any) => any;
     notUndefined: (value: any) => any;
   }
-  const proof = (key: string): Proof => ({
+  const proof = (key: string): IProof => ({
     notNull: (value: any) => notNull(key)(value),
     notUndefined: (value: any) => notUndefined(key)(value),
   });

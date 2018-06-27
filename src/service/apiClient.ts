@@ -1,5 +1,4 @@
-import axios from "axios";
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 // todo .env
 const BASE_URL = "https://jsonplaceholder.typicode.com/";

@@ -22,6 +22,10 @@ echo "$tsfiles" | xargs git add -u
 TSLINT_RESULT=$?
 [ $TSLINT_RESULT -ne 0 ] && echo "TSLint pipe failed" && exit $TSLINT_RESULT
 
+# Print lint after fix
+echo "\n\033[0;33m•\033[0m Linter - checking files..."
+echo "$tsfiles" | xargs ./node_modules/.bin/tslint -t stylish
+
 echo "\033[0;32m✓\033[0m Done!"
 
 exit 0

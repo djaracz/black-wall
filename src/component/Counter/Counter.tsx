@@ -9,17 +9,17 @@ import { CounterSelector } from "../../selectors/CounterSelector";
 import { styles } from "./Counter.s";
 
 namespace Counter {
-  export interface DispatchProps {
+  export type DispatchProps = {
     increment: () => void;
     fetchAsync: () => void;
     decrement: () => void;
     reset: () => void;
     setValue: (value: number) => void;
-  }
-  export interface StateProps {
-    value: CounterSelector.SelectValue;
-  }
-  export interface OwnProps {}
+  };
+  export type StateProps = {
+    value: number;
+  };
+  export type OwnProps = {};
   export type Props = StateProps & DispatchProps & OwnProps;
 }
 

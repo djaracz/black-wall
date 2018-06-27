@@ -2,10 +2,10 @@ import { AxiosError } from "axios";
 
 export namespace ApiError {
   export type CreateMessage = (error: AxiosError) => string;
-  export interface Content {
+  export type Content = {
     name: string;
     message: string;
-  }
+  };
 }
 
 export class ApiError extends Error {

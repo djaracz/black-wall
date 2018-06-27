@@ -2,12 +2,12 @@ import { ApiService } from "../utils/ApiService";
 import { apiClient } from "./apiClient";
 
 export namespace PostService {
-  export interface Entry {
+  export type Entry = {
     id: number;
     userId: number;
     title: string;
     body: string;
-  }
+  };
 
   const client = ApiService.create("Random service", "posts", apiClient);
 
