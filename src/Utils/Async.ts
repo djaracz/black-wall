@@ -52,8 +52,8 @@ export namespace Async {
 
     return handleActions(
       {
-        [types.get(Status.REQUESTED)]: reduceOnRequest ? reduceOnRequest : () => initial,
-        [types.get(Status.PENDING)]: reduceOnPending ? reduceOnPending : () => initial,
+        [types.get(Status.REQUESTED)]: reduceOnRequest ? reduceOnRequest : (state: State) => state,
+        [types.get(Status.PENDING)]: reduceOnPending ? reduceOnPending : (state: State) => state,
         [types.get(Status.REJECTED)]: reduceOnRejected ? reduceOnRejected : () => initial,
         [types.get(Status.RESOLVED)]: reducer,
       },

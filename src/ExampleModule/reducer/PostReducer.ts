@@ -1,4 +1,5 @@
 import { List } from 'immutable';
+import { AnyAction } from 'redux';
 import reduceReducer from 'reduce-reducers';
 
 import { Async } from '../../Utils/Async';
@@ -12,7 +13,7 @@ export namespace PostReducer {
 
   export const list = Async.handleAction<State, PostAction.ListPayload>(
     PostAction.POST_LIST,
-    (state: State, action) => action.payload || initial,
+    (state: State, action: AnyAction) => action.payload,
     initial,
   );
 
