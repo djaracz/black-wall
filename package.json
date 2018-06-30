@@ -41,6 +41,9 @@
     "git:hook": "chmod 755 .githook/pre-commit && cd .git/hooks && rm -f pre-commit && ln -s ../../.githook/pre-commit"
   },
   "dependencies": {
+    "Shared": "./src/Shared",
+    "Utils": "./src/Utils",
+    "ExampleModule": "./src/ExampleModule",
     "axios": "^0.18.0",
     "expo": "^25.0.0",
     "immutable": "^3.8.2",
