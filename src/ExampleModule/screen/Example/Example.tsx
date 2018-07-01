@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { styles } from './Example.s';
+import { createStackNavigator } from 'react-navigation';
 
 namespace Main {
   export type DispatchProps = {};
@@ -81,4 +82,13 @@ const Two: React.SFC<any> = (props) => (
   </View>
 );
 
-export const Example: React.SFC<Main.Props> = () => <View style={styles.main} />;
+const ExampleScreen: React.SFC<Main.Props> = () => (
+  <View style={styles.main}>
+    <Text> YOLLO</Text>
+  </View>
+);
+export const Example = createStackNavigator({
+  Home: {
+    screen: ExampleScreen,
+  },
+});
