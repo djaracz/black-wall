@@ -4,27 +4,68 @@ import {
   Button,
   FlatList,
   ScrollView,
+  StatusBar,
   Text,
   TextInput,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
 import { styles } from './Example.s';
-import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
+import { createStackNavigator, NavigationScreenProps, SafeAreaView } from 'react-navigation';
 
-const One: React.SFC<NavigationScreenProps> = (props: NavigationScreenProps) => {
-  const param: string = props.navigation.getParam('param', 'default param value');
-  const paramNotExisting: string = props.navigation.getParam(
-    'param_not_existing',
-    'default param value',
-  );
-  return (
-    <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }}>
-      <Text>{param}</Text>
-      <Text>{paramNotExisting}</Text>
-    </View>
-  );
-};
+export namespace Route {
+  export const HOME = 'HOME';
+  export const ONE = 'ONE';
+  export const TWO = 'TWO';
+  export const TRI = 'TRI';
+}
+
+class One extends React.Component<NavigationScreenProps> {
+  public static navigationOptions = (props) => {
+    console.log(props);
+    return {
+      title: props.navigation.getParam('param', 'Default name'),
+      headerStyle: {
+        backgroundColor: 'green',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerRight: <Button onPress={() => props.navigation.goBack} title="Info" color="tomato" />,
+    };
+  }
+
+  public render() {
+    const param: string = this.props.navigation.getParam('param', 'default param value');
+    const paramNotExisting: string = this.props.navigation.getParam(
+      'param_not_existing',
+      'default param value',
+    );
+
+    return (
+      <SafeAreaView>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <Text>Light Screen</Text>
+        <Button
+          title="Next screen"
+          onPress={() => this.props.navigation.navigate(Route.TRI)}
+          color="blue"
+        />
+      </SafeAreaView>
+    );
+
+    // return (
+    //   <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }}>
+    //     <Text>{param}</Text>
+    //     <Text>{paramNotExisting}</Text>
+    //     <Button title="Update param" onPress={this.updateTitle}/>
+    //   </View>
+    // );
+  }
+
+  private updateTitle = () => this.props.navigation.setParams({ param: 'Updated' });
+}
 
 const Four: React.SFC<any> = () => (
   <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }} />
@@ -83,25 +124,22 @@ const Two: React.SFC<any> = (props) => (
   </View>
 );
 
-const Home: React.SFC<NavigationScreenProps> = (props: NavigationScreenProps) => (
-  <View style={styles.main}>
-    <Text>YOLLO</Text>
-    <Button
-      title="Go to one"
-      onPress={() =>
-        props.navigation.navigate(Route.ONE, {
-          param: 'test',
-        })
-      }
-    />
-  </View>
-);
+class Home extends React.Component<NavigationScreenProps> {
+  public static navigationOptions = {
+    title: Route.HOME,
+  };
 
-export namespace Route {
-  export const HOME = 'HOME';
-  export const ONE = 'ONE';
-  export const TWO = 'TWO';
-  export const TRI = 'TRI';
+  public render() {
+    return (
+      <View style={styles.main}>
+        <Text>YOLLO</Text>
+        <Button title="Go to one" onPress={this.goTo(Route.ONE, { param: 'Toolbar name' })} />
+      </View>
+    );
+  }
+
+  private goTo = (route: string, params: any = {}) => () =>
+    this.props.navigation.navigate(route, params)
 }
 
 export const Example = createStackNavigator(
@@ -121,5 +159,14 @@ export const Example = createStackNavigator(
   },
   {
     initialRouteName: Route.HOME,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'tomato',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
   },
 );
