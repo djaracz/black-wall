@@ -10,20 +10,21 @@ import {
   View,
 } from 'react-native';
 import { styles } from './Example.s';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
 
-namespace Main {
-  export type DispatchProps = {};
-  export type StateProps = {};
-  export type OwnProps = {};
-  export type Props = StateProps & DispatchProps & OwnProps;
-}
-
-const One: React.SFC<any> = () => (
-  <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }}>
-    <Text>One</Text>
-  </View>
-);
+const One: React.SFC<NavigationScreenProps> = (props: NavigationScreenProps) => {
+  const param: string = props.navigation.getParam('param', 'default param value');
+  const paramNotExisting: string = props.navigation.getParam(
+    'param_not_existing',
+    'default param value',
+  );
+  return (
+    <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }}>
+      <Text>{param}</Text>
+      <Text>{paramNotExisting}</Text>
+    </View>
+  );
+};
 
 const Four: React.SFC<any> = () => (
   <View style={{ flex: 4, backgroundColor: 'pink', alignItems: 'center', width: '100%' }} />
@@ -82,13 +83,43 @@ const Two: React.SFC<any> = (props) => (
   </View>
 );
 
-const ExampleScreen: React.SFC<Main.Props> = () => (
+const Home: React.SFC<NavigationScreenProps> = (props: NavigationScreenProps) => (
   <View style={styles.main}>
-    <Text> YOLLO</Text>
+    <Text>YOLLO</Text>
+    <Button
+      title="Go to one"
+      onPress={() =>
+        props.navigation.navigate(Route.ONE, {
+          param: 'test',
+        })
+      }
+    />
   </View>
 );
-export const Example = createStackNavigator({
-  Home: {
-    screen: ExampleScreen,
+
+export namespace Route {
+  export const HOME = 'HOME';
+  export const ONE = 'ONE';
+  export const TWO = 'TWO';
+  export const TRI = 'TRI';
+}
+
+export const Example = createStackNavigator(
+  {
+    [Route.HOME]: {
+      screen: Home,
+    },
+    [Route.ONE]: {
+      screen: One,
+    },
+    [Route.TWO]: {
+      screen: Two,
+    },
+    [Route.TRI]: {
+      screen: Tri,
+    },
   },
-});
+  {
+    initialRouteName: Route.HOME,
+  },
+);
