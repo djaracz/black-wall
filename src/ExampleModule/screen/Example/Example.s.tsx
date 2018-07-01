@@ -2,9 +2,8 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  view: {
+  main: {
     flex: 1,
-    backgroundColor: 'green',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 
 import { store } from './Shared/store';
-import { Counter } from './ExampleModule/component/Counter';
+import { Example } from './ExampleModule/screen/Example';
+// import { Main } from './Shared/screen/Main';
 
 export const Root = (): React.ReactNode => (
   <Provider store={store}>
-    <Counter />
+    <Example />
   </Provider>
 );
