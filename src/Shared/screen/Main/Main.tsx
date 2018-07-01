@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Link, NativeRouter, Route } from 'react-router-native';
 import { styles } from './Main.s';
 
 namespace Main {
@@ -10,17 +9,6 @@ namespace Main {
   export type Props = StateProps & DispatchProps & OwnProps;
 }
 
-const TempNavigation: React.SFC<{}> = () => (
-  <View style={{}}>
-    <Link to="/" underlayColor="pink" />
-  </View>
-);
+const TempNavigation: React.SFC<{}> = () => <View style={{}} />;
 
-export const Main: React.SFC<Main.Props> = () => (
-  <NativeRouter>
-    <View style={styles.main}>
-      <TempNavigation />
-      {/*<Route path="/" component={} exact={true} />*/}
-    </View>
-  </NativeRouter>
-);
+export const Main: React.SFC<Main.Props> = () => <View style={styles.main} />;
